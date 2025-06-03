@@ -7,8 +7,12 @@ import com.example.tasktracker.util.AppConstants;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.PostConstruct;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +25,18 @@ public class TaskController {
 
 
     private final TaskService taskService;
+    
+    @Autowired
+    private DataSource dataSource;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
+    }
+    
+    @PostConstruct
+    public void printConnectedDB() throws SQLException {
+    	System.out.println("🔍 DataSource Class: " + dataSource.getClass().getName());
+        System.out.println("🔍 DB URL: " + dataSource.getConnection().getMetaData().getURL());
     }
 
     @Operation(summary = "Create a new task")
