@@ -31,3 +31,11 @@ A simple Spring Boot CRUD application to manage tasks — built with Java, Sprin
 ```bash
 git clone https://github.com/sing-har/task-tracker.git
 cd task-tracker
+
+
+## 🧪 Postman Collection
+
+You can test all the APIs using Postman by importing this collection:
+
+📁 [postman_collection.json](./postman_collection.json)
+
