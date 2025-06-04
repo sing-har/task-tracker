@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "365d250b-7438-4e6a-a80f-0818b43d1507",
 		"name": "Task Tracker API",
-		"description": "- POST `/api/tasks`\n    \n- GET `/api/tasks`\n    \n- GET `/api/tasks/{id}`\n    \n- PUT `/api/tasks/{id}`\n    \n- DELETE `/api/tasks/{id}`",
+		"description": "- POST `/api/tasks`\n    \n- GET `/api/tasks`\n    \n- GET `/api/tasks/{id}`\n    \n- PUT `/api/tasks/{id}`\n    \n- DELETE `/api/tasks/{id}`\n    \n- POST /auth/register\n    \n- POST /auth/login",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "45566943"
 	},
@@ -27,11 +27,15 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer $TOKEN"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Write README\",\n    \"description\": \"Create documentation for the project\",\n    \"status\": \"PENDING\",\n    \"dueDate\": \"2025-06-10\"\n}",
+					"raw": "{\n    \"title\": \"Complete Docs\",\n    \"description\": \"Add README and Postman collection\",\n    \"status\": \"PENDING\",\n    \"dueDate\": \"2025-06-10\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -58,7 +62,12 @@
 			"name": "get All Tasks",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer $TOKEN"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/api/tasks",
 					"protocol": "http",
@@ -79,7 +88,12 @@
 			"name": "get Task by Id",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer $TOKEN"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/api/tasks/1",
 					"protocol": "http",
@@ -105,11 +119,15 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer $TOKEN"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Update README\",\n    \"description\": \"Fix grammar and typos\",\n    \"status\": \"IN_PROGRESS\",\n    \"dueDate\": \"2025-06-12\"\n}",
+					"raw": "{\n    \"title\": \"Updated Title\",\n    \"description\": \"Updated Description\",\n    \"status\": \"IN_PROGRESS\",\n    \"dueDate\": \"2025-06-15\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -137,7 +155,12 @@
 			"name": "delete Task",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer $TOKEN"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8080/api/tasks/1",
 					"protocol": "http",
@@ -152,6 +175,76 @@
 					]
 				},
 				"description": "#### **Delete Task (DELETE /api/tasks/{id})**\n\n> &lt;p &gt;Deletes a task by ID. Returns a success message. No response body is returned if the task is deleted successfully.&lt;/p&gt;"
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "StartFragment\n\n### ✅ Method:\n\n`POST`\n\n### 🔐 Authorization:\n\n❌ Not required (public)\n\n### 🧾 Description:\n\n> \n\nRegisters a new user with a **unique username** and an **encrypted password**.  \n  \nIf the username already exists, returns a failure response.\n\n \n  \n\nEndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Login (Get JWT Token)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "StartFragment\n\n### ✅ Method:\n\n`POST`\n\n### 🔐 Authorization:\n\n❌ Not required (public)\n\n### 🧾 Description:\n\n> \n\nAuthenticates the user using username and password.  \n  \nIf valid, returns a **JWT token** to access protected APIs.\n\n \n  \n\nEndFragment"
 			},
 			"response": []
 		}
